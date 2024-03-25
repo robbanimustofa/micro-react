@@ -3,10 +3,14 @@ import * as React from 'react';
 import NxWelcome from './nx-welcome';
 
 import { Link, Route, Routes } from 'react-router-dom';
+import { loadRemoteModule } from '@micro-react/load-remote-module';
 
-const Dashboard = React.lazy(() => import('dashboard/Module'));
+// const Dashboard = React.lazy(() => import('dashboard/Module'));
 
-const InventoryAtm = React.lazy(() => import('inventory-atm/Module'));
+// const InventoryAtm = React.lazy(() => import('inventory-atm/Module'));
+
+const Dashboard = React.lazy(() => loadRemoteModule('dashboard', './Module'));
+const InventoryAtm = React.lazy(() => loadRemoteModule('inventory-atm', './Module'));
 
 export function App() {
   return (
