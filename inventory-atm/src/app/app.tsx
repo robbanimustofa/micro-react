@@ -7,7 +7,7 @@ export function App() {
   return (
     <div>
       <NxWelcome title="inventory-atm" />
-      sdakjd
+      Inventory-ATM
     </div>
   );
 }
