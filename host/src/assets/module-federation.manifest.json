@@ -1,0 +1,4 @@
+{
+  "dashboard": "http://localhost:4201",
+  "inventory": "http://localhost:4202"
+}

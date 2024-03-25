@@ -1,0 +1,91 @@
+{
+  "name": "inventory-atm",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "inventory-atm/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/inventory-atm",
+        "index": "inventory-atm/src/index.html",
+        "baseHref": "/",
+        "main": "inventory-atm/src/main.ts",
+        "tsConfig": "inventory-atm/tsconfig.app.json",
+        "assets": ["inventory-atm/src/favicon.ico", "inventory-atm/src/assets"],
+        "styles": ["inventory-atm/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "inventory-atm/webpack.config.ts"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "inventory-atm/src/environments/environment.ts",
+              "with": "inventory-atm/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "inventory-atm/webpack.config.prod.ts"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "inventory-atm:build",
+        "hmr": true,
+        "port": 4202
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "inventory-atm:build:development"
+        },
+        "production": {
+          "buildTarget": "inventory-atm:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "buildTarget": "inventory-atm:build",
+        "watch": false,
+        "port": 4202
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "inventory-atm:build:development"
+        },
+        "production": {
+          "buildTarget": "inventory-atm:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "inventory-atm/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
